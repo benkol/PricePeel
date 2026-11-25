@@ -1,0 +1,265 @@
+/*
+ * "Peeled corner" label in the top-right of a search card's thumbnail.
+ * The square .pricepeel-peel sits in the corner. Its diagonal (top-left -> bottom-right) is the fold:
+ *   - .pricepeel-peel-under: the top-right triangle, the revealed "hidden" price underneath the photo
+ *   - .pricepeel-peel-flap:  the bottom-left triangle, the back of the curled paper lying over the photo
+ * Hovering the card grows the square, so the paper peels further and more details show.
+ */
+.pricepeel-peel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34%;          /* of the thumbnail: a small dog-ear at rest */
+  aspect-ratio: 1;
+  z-index: 6;
+  pointer-events: none; /* clicks go through to the product link */
+  /* slight overshoot so the paper "springs" open, and settles back more calmly */
+  transition: width 0.3s cubic-bezier(.3, .7, .4, 1);
+  direction: ltr;
+  font-family: inherit;
+  /* "backwards" only: a fill-mode of forwards/both would keep driving width and block the hover transition */
+  animation: pricepeel-peel-in 0.6s cubic-bezier(.2, .9, .3, 1.25) backwards;
+}
+.pricepeel-card:hover .pricepeel-peel {
+  width: 85%;
+  transition: width 0.45s cubic-bezier(.2, .9, .3, 1.25);
+}
+
+@keyframes pricepeel-peel-in {
+  from { width: 0; }
+}
+
+/* ---- revealed area under the paper ---- */
+.pricepeel-peel-under {
+  position: absolute;
+  inset: 0;
+  /* corner side of the curved fold: Bezier (0,0) (24,0) (100,76) (100,100), same as the flap in content.js */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 99.1% 94.9%, 96.7% 88.8%, 92.8% 81.9%, 87.8% 74.3%, 81.6% 66.2%,
+    74.7% 57.8%, 67.1% 49.4%, 59% 41%, 50.6% 32.9%, 42.2% 25.3%, 33.8% 18.4%, 25.8% 12.3%, 18.1% 7.2%,
+    11.2% 3.3%, 5.1% 0.9%);
+  color: #fff;
+  background: radial-gradient(circle at 100% 0, #ffa53a 0%, #ff8a10 45%, #f07000 80%);
+}
+.pricepeel-ship-only .pricepeel-peel-under {
+  background: radial-gradient(circle at 100% 0, #566b80 0%, #3d5164 45%, #2c3c4b 80%);
+}
+
+.pricepeel-peel-text {
+  position: absolute;
+  /* At rest the price sits right at the fold (~58% in along the diagonal), so the curled paper
+     covers its lower edge and it looks like it's peeking out from underneath. */
+  left: 67%;
+  top: 36%;
+  transition: left 0.35s ease, top 0.35s ease;
+  width: 90%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+}
+/* Title and details stay hidden until the card is hovered. */
+.pricepeel-peel-title,
+.pricepeel-peel-more {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+.pricepeel-peel-title {
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.pricepeel-peel-price {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+/* Cents: small and sitting on the baseline, leaving room for bigger whole digits. */
+/* Currency symbol: small, faded and on the baseline, so the number stands out. */
+.pricepeel-peel-cur {
+  font-size: 0.55em;
+  font-weight: 700;
+  opacity: 0.75;
+  margin: 0 1px;
+}
+.pricepeel-peel-dec {
+  font-size: 0.55em;
+  margin-left: 0.5px;
+  letter-spacing: 0;
+}
+.pricepeel-peel-more {
+  font-size: 9px;
+  line-height: 1.1;
+}
+.pricepeel-peel-more b { font-weight: 800; }
+.pricepeel-peel-more .pricepeel-dim { opacity: 0.75; }
+.pricepeel-card:hover .pricepeel-peel-title { max-height: 10px; opacity: 0.92; transition-delay: 0.1s; }
+.pricepeel-card:hover .pricepeel-peel-more { max-height: 36px; opacity: 1; transition-delay: 0.1s; }
+/* On hover the text moves a third of the way in, fully inside the revealed area. */
+.pricepeel-card:hover .pricepeel-peel-text { left: 76.5%; top: 23.5%; }
+
+/* ---- the curled paper (back side of the peeled corner, an inline SVG) ---- */
+.pricepeel-peel-flap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  /* the rolled paper shades the revealed price along the fold, and softly lifts off the photo */
+  filter: drop-shadow(2px -2px 3px rgba(0, 0, 0, 0.35)) drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ---- "paused" note shown while AliExpress's robot check makes lookups wait ---- */
+#pricepeel-paused-note {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 2147483000;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 340px;
+  padding: 8px 8px 8px 12px;
+  border-radius: 8px;
+  background: #2c3c4b;
+  color: #fff;
+  font: 12px/1.35 system-ui, sans-serif;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  direction: ltr;
+  animation: pricepeel-fade-in 0.25s ease both;
+}
+#pricepeel-paused-note .pricepeel-note-logo {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -1px;
+  border-radius: 4px;
+}
+#pricepeel-paused-note .pricepeel-note-text { flex: 1; }
+#pricepeel-paused-note .pricepeel-note-mins { display: none; font-weight: 700; }
+#pricepeel-paused-note .pricepeel-note-btn {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font: 700 14px/20px system-ui, sans-serif;
+  cursor: pointer;
+}
+#pricepeel-paused-note .pricepeel-note-btn:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+
+/* Collapsed: a small pill with the time left; click it to expand again. */
+#pricepeel-paused-note.pricepeel-collapsed {
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+#pricepeel-paused-note.pricepeel-collapsed .pricepeel-note-text,
+#pricepeel-paused-note.pricepeel-collapsed .pricepeel-note-collapse { display: none; }
+#pricepeel-paused-note.pricepeel-collapsed .pricepeel-note-mins { display: inline; }
+#pricepeel-paused-note.pricepeel-collapsed .pricepeel-note-close { width: 16px; height: 16px; line-height: 16px; font-size: 12px; }
+
+/* ---- progress: the same peel in a small form while a card is checked ----
+   idle (not checked yet) -> queued (waiting its turn) -> loading (request in flight).
+   When done it opens into the price corner, or folds away (.pricepeel-closing). */
+.pricepeel-peel.pricepeel-mini { transition: width 0.35s cubic-bezier(.3, .7, .4, 1), opacity 0.3s ease; }
+.pricepeel-peel.pricepeel-mini .pricepeel-peel-under { background: #d5dade; }
+.pricepeel-peel.pricepeel-state-idle { width: 12%; }
+.pricepeel-peel.pricepeel-state-queued { width: 16%; }
+.pricepeel-peel.pricepeel-state-queued .pricepeel-peel-under {
+  background: radial-gradient(circle at 100% 0, #566b80 0%, #3d5164 60%, #2c3c4b 90%);
+}
+.pricepeel-peel.pricepeel-state-loading {
+  width: 19%;
+  animation: pricepeel-peek 0.9s ease-in-out infinite alternate; /* the corner keeps lifting a little */
+}
+.pricepeel-peel.pricepeel-state-loading .pricepeel-peel-under {
+  background: radial-gradient(circle at 100% 0, #ffa53a 0%, #ff8a10 50%, #f07000 90%);
+}
+/* Checked, with a result: the mini corner peels open into the price corner from its current size
+   (the "to" width is the price corner's own width). */
+.pricepeel-peel.pricepeel-opening { animation: pricepeel-open 0.5s cubic-bezier(.2, .9, .3, 1.15); }
+@keyframes pricepeel-open { from { width: var(--pricepeel-open-from, 19%); } }
+
+/* Checked, nothing to show: the corner settles back flat and fades out. */
+.pricepeel-peel.pricepeel-closing {
+  width: 0;
+  opacity: 0;
+  animation: pricepeel-fold 0.5s cubic-bezier(.4, 0, .6, 1) both;
+}
+@keyframes pricepeel-fold {
+  0% { width: var(--pricepeel-fold-from, 19%); opacity: 1; }
+  35% { width: calc(var(--pricepeel-fold-from, 19%) * 1.12); opacity: 1; } /* a last little lift... */
+  100% { width: 0; opacity: 0; }                                     /* ...then it lies flat */
+}
+@keyframes pricepeel-peek { from { width: 17%; } to { width: 22%; } }
+
+/* three dots in the revealed corner: still while queued, pulsing while loading */
+.pricepeel-peel-dots {
+  position: absolute;
+  left: 76%;
+  top: 24%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  display: flex;
+  gap: 2px;
+}
+.pricepeel-peel-dots i {
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.85;
+}
+.pricepeel-peel.pricepeel-state-idle .pricepeel-peel-dots { display: none; }
+.pricepeel-peel.pricepeel-state-loading .pricepeel-peel-dots i { animation: pricepeel-dot 0.9s ease-in-out infinite; }
+.pricepeel-peel.pricepeel-state-loading .pricepeel-peel-dots i:nth-child(2) { animation-delay: 0.15s; }
+.pricepeel-peel.pricepeel-state-loading .pricepeel-peel-dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pricepeel-dot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+/* limited: waiting for AliExpress's per-minute limit; a ring fills until the next slot frees up */
+.pricepeel-peel.pricepeel-state-limited { width: 16%; }
+.pricepeel-peel.pricepeel-state-limited .pricepeel-peel-under {
+  background: radial-gradient(circle at 100% 0, #566b80 0%, #3d5164 60%, #2c3c4b 90%);
+}
+.pricepeel-peel-ring {
+  display: none;
+  position: absolute;
+  left: 76%;
+  top: 24%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%) rotate(-90deg); /* start filling from 12 o'clock */
+  overflow: visible;
+}
+.pricepeel-peel.pricepeel-state-limited .pricepeel-peel-ring { display: block; }
+.pricepeel-peel.pricepeel-state-limited .pricepeel-peel-dots { display: none; }
+.pricepeel-ring-track { fill: none; stroke: rgba(255, 255, 255, 0.3); stroke-width: 2; }
+.pricepeel-ring-fill {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: pricepeel-ring 60s linear var(--pricepeel-ring-delay, 0ms) forwards; /* negative delay = already partly full */
+}
+@keyframes pricepeel-ring { to { stroke-dashoffset: 0; } }
+
+/* paused (robot check): a muted corner with an upright pause sign instead of dots */
+.pricepeel-peel.pricepeel-state-paused { width: 15%; }
+.pricepeel-peel.pricepeel-state-paused .pricepeel-peel-under { background: radial-gradient(circle at 100% 0, #a7b1bb 0%, #8994a0 70%); }
+.pricepeel-peel.pricepeel-state-paused .pricepeel-peel-dots { transform: translate(-50%, -50%); gap: 2px; }
+.pricepeel-peel.pricepeel-state-paused .pricepeel-peel-dots i { width: 2px; height: 6px; border-radius: 1px; opacity: 0.95; }
+.pricepeel-peel.pricepeel-state-paused .pricepeel-peel-dots i:nth-child(2) { display: none; }
+@keyframes pricepeel-fade-in { from { opacity: 0; } }

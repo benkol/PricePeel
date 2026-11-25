@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy – PricePeel</title>
+<link rel="icon" href="/icon.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header><div class="bar">
+  <a class="brand" href="/"><img src="/icon.png" alt=""><span>PricePeel</span></a>
+  <nav><a href="/">Home</a><a href="/privacy/" aria-current="page">Privacy</a><a href="/contact/">Contact</a><a href="https://github.com/benkol/PricePeel">GitHub</a></nav>
+</div></header>
+<main>
+<h1>Privacy Policy</h1>
+<p class="muted">Effective date: November 24, 2026</p>
+
+<p>PricePeel is a browser extension that shows the real price of the item pictured in AliExpress search
+results, when a listing advertises the price of a cheaper accessory variant. This policy explains what the
+extension does with data. In short: <strong>the PricePeel extension does not collect, sell or share any personal
+data, and it doesn't send anything to its developer.</strong></p>
+
+<h2>What the extension reads</h2>
+<p>PricePeel runs only on AliExpress pages (<code>aliexpress.com</code> and <code>aliexpress.us</code>).
+On search and listing pages it reads the product cards shown on the page: product IDs, advertised prices,
+thumbnails and labels such as "Choice" or "Bundle deals".</p>
+
+<h2>What the extension requests, and from whom</h2>
+<ul>
+  <li><strong>Product details from AliExpress.</strong> For each product card you look at, PricePeel asks
+    AliExpress for that product's variants and prices, using the same request the AliExpress product page
+    makes, in your own browser and with your existing AliExpress session. These requests go only to
+    AliExpress.</li>
+  <li><strong>Product images from AliExpress's image servers</strong> (<code>aliexpress-media.com</code>,
+    <code>alicdn.com</code>), to compare a listing's thumbnail with its variant photos. The images are
+    processed in memory and not stored.</li>
+</ul>
+<p>The extension sends nothing to its developer or to any third party. It contains no analytics, tracking,
+advertising or affiliate code, and it does not change AliExpress links.</p>
+
+<h2>What the extension stores, and where</h2>
+<p>Everything stays on your own device:</p>
+<table>
+  <tr><th>Data</th><th>Where</th><th>How long</th></tr>
+  <tr><td>Product variant and price data, to avoid looking the same product up repeatedly</td>
+      <td>The extension's local storage in your browser</td><td>24 hours, then deleted</td></tr>
+  <tr><td>Times of recent lookups (to stay under AliExpress's rate limit) and whether lookups are paused</td>
+      <td>AliExpress's site storage in your browser</td><td>Lookup times: one minute; a pause: up to two hours</td></tr>
+  <tr><td>Whether you collapsed or closed PricePeel's "paused" note</td>
+      <td>AliExpress's site storage in your browser</td><td>Until you clear site data</td></tr>
+</table>
+<p>No account, name, email address, payment information, browsing history outside AliExpress, or
+location is collected or stored by the extension. Removing the extension deletes its local storage; clearing
+AliExpress's site data removes the rest.</p>
+
+<h2>This website and the contact form</h2>
+<p>This website has no analytics, ads or tracking cookies. If you send a message through the
+<a href="/contact/">contact form</a>, what you enter (your message, and optionally an AliExpress link and your
+email address) is stored by the site's host, Netlify, and is used only to read and answer your message.
+It isn't shared, sold or used for marketing. To have a message deleted, ask through the same form.</p>
+
+<h2>Children</h2>
+<p>PricePeel does not knowingly collect any information from children.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the new version will be posted on this page with a new effective date.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: use the <a href="/contact/">contact form</a>.</p>
+</main>
+<footer>PricePeel is an independent project and is not affiliated with, endorsed by or sponsored by AliExpress or Alibaba Group.</footer>
+</body>
+</html>

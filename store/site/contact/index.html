@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact – PricePeel</title>
+<link rel="icon" href="/icon.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header><div class="bar">
+  <a class="brand" href="/"><img src="/icon.png" alt=""><span>PricePeel</span></a>
+  <nav><a href="/">Home</a><a href="/privacy/">Privacy</a><a href="/contact/" aria-current="page">Contact</a><a href="https://github.com/benkol/PricePeel">GitHub</a></nav>
+</div></header>
+<main>
+  <h1>Contact</h1>
+  <p class="muted">Questions, ideas, or a price PricePeel got wrong? Send a message. If you'd like a reply, leave your email.</p>
+
+  <div class="card">
+    <!-- Netlify Forms picks this form up automatically when the site is deployed on Netlify. -->
+    <form name="contact" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hidden"><label>Leave this empty: <input name="company" tabindex="-1" autocomplete="off"></label></p>
+
+      <label>Topic
+        <select name="topic" required>
+          <option value="Wrong price">A price PricePeel got wrong</option>
+          <option value="Bug">Something isn't working</option>
+          <option value="Idea">An idea or request</option>
+          <option value="Privacy">Privacy question</option>
+          <option value="Other">Something else</option>
+        </select>
+      </label>
+
+      <label>Message
+        <textarea name="message" required maxlength="5000"></textarea>
+      </label>
+
+      <label>AliExpress link <span class="hint">Optional. For a wrong price, the item's link helps a lot.</span>
+        <input type="url" name="item_link" placeholder="https://www.aliexpress.com/item/…">
+      </label>
+
+      <label>Your email <span class="hint">Optional. Only used to reply to you.</span>
+        <input type="email" name="email" autocomplete="email">
+      </label>
+
+      <div><button class="button" type="submit">Send</button></div>
+    </form>
+  </div>
+</main>
+<footer>PricePeel is an independent project and is not affiliated with AliExpress. Messages are handled by Netlify, the site's host, and are only used to answer you.</footer>
+</body>
+</html>
