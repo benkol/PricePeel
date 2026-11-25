@@ -59,3 +59,6 @@ Everything for the Chrome Web Store is in `store/`:
 - It depends on AliExpress's current page and API structure. If AliExpress changes it, labels stop appearing. They don't show wrong data.
 - Variant names come from sellers and are usually English. The accessory-word list covers common cases only.
 - If AliExpress shows its "are you a robot?" check (the extension watches for AliExpress's own popup, since the request that triggers it is held open rather than failed), lookups pause for 10 minutes (doubling, up to 2 hours, if it happens again soon after) and a small note in the bottom-left corner says so. Cards still on screen are looked up after the pause.
+
+## License
+[MIT](LICENSE). PricePeel is an independent project and is not affiliated with, endorsed by or sponsored by AliExpress or Alibaba Group.

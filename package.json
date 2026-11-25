@@ -2,6 +2,7 @@
   "name": "pricepeel",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "description": "PricePeel: a Chrome extension that shows the real price of the pictured item on AliExpress search results.",
   "scripts": {
     "test": "node --test test/analyze.test.cjs test/bridge.test.cjs",
