@@ -1,5 +1,7 @@
 # Publishing PricePeel to the Chrome Web Store
 
+Published: https://chromewebstore.google.com/detail/pricepeel-%E2%80%93-real-prices-f/gmelcjdfagmgjphjnbemeioofkhoeocl
+
 ## One-time setup
 - [ ] Register a Chrome Web Store developer account at https://chrome.google.com/webstore/devconsole (one-time US$5 fee, paid by you).
 - [ ] Verify the contact email on the account (the dashboard asks for this before publishing).

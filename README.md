@@ -1,6 +1,6 @@
 # PricePeel – real prices for AliExpress
 
-Website: https://pricepeel.benkol.com/ · [Privacy policy](https://pricepeel.benkol.com/privacy/) · [Contact](https://pricepeel.benkol.com/contact/)
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/pricepeel-%E2%80%93-real-prices-f/gmelcjdfagmgjphjnbemeioofkhoeocl)** · Website: https://pricepeel.benkol.com/ · [Privacy policy](https://pricepeel.benkol.com/privacy/) · [Contact](https://pricepeel.benkol.com/contact/)
 
 A Chrome extension for AliExpress search results and the homepage product feed. Some listings show the price of a cheap accessory variant (bullets, a magazine, "24pcs") while the photo shows the main product. The extension peels back the top-right corner of the thumbnail to reveal the price of the item in the photo. AliExpress's own price stays where it is.
 
@@ -14,7 +14,10 @@ While a card is being checked, the same corner shows its progress in a small for
 
 At rest the corner shows only the price, without a currency code ("$28.79", not "US $28.79"). Hover a card and the corner peels further, adds a "Real price" or "Total" title and shows details: the shipping and total, the variant in the photo, and the variant the listed price is really for. Shipping is left out for free-shipping, Choice and Bundle items, and when it couldn't be found.
 
-## Install (developer mode)
+## Install
+Get it from the [Chrome Web Store](https://chromewebstore.google.com/detail/pricepeel-%E2%80%93-real-prices-f/gmelcjdfagmgjphjnbemeioofkhoeocl).
+
+### From source (developer mode)
 1. Open `chrome://extensions`.
 2. Turn on **Developer mode** (top right).
 3. Click **Load unpacked** and select this folder (the one that contains `manifest.json`).
